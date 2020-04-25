@@ -11,4 +11,15 @@ RSpec.describe Directory, type: :model do
       expect(directory).not_to be_valid
     end
   end
+
+
+  describe '.recent' do
+    it 'should list recent directory first' do
+      old_directory = create :directory
+      newer_directory = create :directory
+      expect(described_class.recent).to eq([newer_directory, old_directory])
+      expect(old_directory.update(created_at: Time.now))
+      expect(described_class.recent).to eq([old_directory, newer_directory])
+    end
+  end
 end

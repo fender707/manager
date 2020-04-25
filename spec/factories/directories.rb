@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :directory do
-    title { "MyString" }
-    parent_directory_id { 1 }
+    sequence(:title) { |n| "Directory #{n}" }
+    parent_directory_id { nil }
   end
 end
