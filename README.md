@@ -1,24 +1,6 @@
-# README
+*** Welcome to the Manager App ***
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Manager application is built on:
+* Ruby 2.6.5
+* Rails 5.2.2.1
+* Hosted by heroku with asset storage on AWS S3
