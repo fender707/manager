@@ -10,11 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_25_202751) do
+ActiveRecord::Schema.define(version: 2020_04_27_114558) do
 
   create_table "directories", force: :cascade do |t|
     t.string "title"
     t.integer "parent_directory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
+  create_table "logins", force: :cascade do |t|
+    t.string "identification", null: false
+    t.string "password_digest"
+    t.string "oauth2_token", null: false
+    t.string "uid"
+    t.string "single_use_oauth2_token"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "provider"
+    t.index ["user_id"], name: "index_logins_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
