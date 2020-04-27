@@ -44,7 +44,8 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-
+  ENV['GOOGLE_CLIENT_ID'] = '401283529257-r0d0g11r33g2n4mi8nrrlg5i7s1lp632.apps.googleusercontent.com'
+  ENV['GOOGLE_CLIENT_SECRET'] = 'OxRFgcKwy0wSvfl55LhWMbuY'
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
