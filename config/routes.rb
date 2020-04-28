@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post 'login', to: 'access_tokens#create'
+  delete 'logout', to: 'access_tokens#destroy'
+  resources :directories, except: [:show, :edit]
 
-  resources :directories, only: [:index, :show]
-  resources :users, only: [:create]
-
-  # Routes for Google authentication
-  get 'auth/:provider/callback', to: 'sessions#googleAuth'
-  get 'auth/failure', to: redirect('/')
 end

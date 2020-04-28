@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   end
   context 'associations' do
     it { expect(subject).to have_many(:directories).dependent(:destroy) }
+    it { expect(subject).to have_one(:access_token).dependent(:destroy) }
   end
   context 'validations' do
     it 'requires login' do
