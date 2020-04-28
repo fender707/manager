@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Directory, type: :model do
   describe '#associations' do
     it { expect(subject).to belong_to(:user) }
+    it { expect(subject).to have_many(:notes).dependent(:destroy) }
   end
   describe '#validations' do
     it 'test Factory Bot object' do

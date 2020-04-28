@@ -10,11 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_212556) do
+ActiveRecord::Schema.define(version: 2020_04_28_082507) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string "token"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
@@ -25,21 +28,21 @@ ActiveRecord::Schema.define(version: 2020_04_27_212556) do
     t.integer "parent_directory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_directories_on_user_id"
   end
 
-  create_table "logins", force: :cascade do |t|
-    t.string "identification", null: false
-    t.string "password_digest"
-    t.string "oauth2_token", null: false
-    t.string "uid"
-    t.string "single_use_oauth2_token"
-    t.integer "user_id"
+  create_table "notes", force: :cascade do |t|
+    t.string "title"
+    t.bigint "directory_id"
+    t.bigint "user_id"
+    t.integer "position"
+    t.string "description"
+    t.jsonb "tags", default: []
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
-    t.index ["user_id"], name: "index_logins_on_user_id"
+    t.index ["directory_id"], name: "index_notes_on_directory_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,4 +55,6 @@ ActiveRecord::Schema.define(version: 2020_04_27_212556) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "notes", "directories"
+  add_foreign_key "notes", "users"
 end
