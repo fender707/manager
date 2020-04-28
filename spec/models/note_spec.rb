@@ -14,7 +14,6 @@ RSpec.describe Note, type: :model do
       note = Note.new
       expect(note).not_to be_valid
       expect(note.errors.messages).to include({
-                                                user: ['must exist'],
                                                 directory: ['must exist'],
                                                 title: ["can't be blank"]
                                               })
