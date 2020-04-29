@@ -11,6 +11,7 @@ gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'active_model_serializers'
 gem 'httparty', '~> 0.18.0'
+gem 'rack-cors'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
