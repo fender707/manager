@@ -65,7 +65,7 @@ module UsersServices
           code: code,
           client_id: ENV['GOOGLE_CLIENT_ID'],
           client_secret: ENV['GOOGLE_CLIENT_SECRET'],
-          redirect_uri: '',
+          redirect_uri: "https://#{ENV['DOMAIN_URL']}/login",
           grant_type: 'authorization_code'
         }
       }
