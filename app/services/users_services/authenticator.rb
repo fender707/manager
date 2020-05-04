@@ -55,6 +55,8 @@ module UsersServices
     end
 
     def user_url(access_token)
+      print "ACCESS TOKEN\n\n\n\n\n\n\n\n\n"
+      print access_token
       PROFILE_URL % { access_token: access_token }
     end
 
