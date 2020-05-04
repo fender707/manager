@@ -2,7 +2,7 @@ class AccessTokensController < ApplicationController
   before_action :authorize!, only: :destroy
 
   def create
-    authenticator = UsersServices::Authenticator.new(authentication_params)
+    authenticator = UsersServices::Authenticator.new(authentication_params[:code])
     authenticator.perform
 
     render json: authenticator.access_token, status: :created
@@ -15,10 +15,6 @@ class AccessTokensController < ApplicationController
   private
 
   def authentication_params
-    print "params.permit(:code)\n\n\n\n"
-    print params.permit(:code)
-    print "authentication_params \n\n\n\n\n\n\n\n"
-    print params.permit(:code).to_h.symbolize_keys
     params.permit(:code).to_h.symbolize_keys
   end
 end
