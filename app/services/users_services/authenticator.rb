@@ -26,6 +26,8 @@ module UsersServices
     def token
       @token ||= begin
         response = HTTParty.post(TOKEN_URL, token_options)
+        print "TOKEN RESPONSE\n\n\n\n\n\n"
+        print response
         response.parsed_response['access_token']
       end
     end
