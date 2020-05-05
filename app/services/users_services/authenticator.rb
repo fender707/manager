@@ -7,7 +7,7 @@ module UsersServices
 
     PROVIDER = 'google'.freeze
     TOKEN_URL = 'https://www.googleapis.com/oauth2/v3/token'.freeze
-    PROFILE_URL = 'https://oauth2.googleapis.com/tokeninfo?id_token=%{access_token}'.freeze
+    PROFILE_URL = 'https://oauth2.googleapis.com/tokeninfo?id_token=%{id_token}'.freeze
 
     def initialize(code)
       @code = code
@@ -15,7 +15,7 @@ module UsersServices
 
     def perform
       raise AuthenticationError if code.blank?
-      raise AuthenticationError if token.try(:error).present?
+      raise AuthenticationError if id_token.try(:error).present?
 
       prepare_user
       set_access_token
@@ -23,8 +23,8 @@ module UsersServices
 
     private
 
-    def token
-      @token ||= begin
+    def id_token
+      @id_token ||= begin
         response = HTTParty.post(TOKEN_URL, token_options)
         print "TOKEN RESPONSE\n\n\n\n\n\n"
         print response
@@ -33,9 +33,9 @@ module UsersServices
     end
 
     def prepare_user
-      user_data = get_user(token)
-      @user = if User.exists?(login: user_data[:login])
-                User.find_by(login: user_data[:login])
+      user_data = get_user(id_token)
+      @user = if User.exists?(login: user_data[:email])
+                User.find_by(login: user_data[:email])
               else
                 User.create(user_data.merge(provider: PROVIDER))
               end
@@ -49,14 +49,14 @@ module UsersServices
                       end
     end
 
-    def get_user(access_token)
+    def get_user(id_token)
       @get_user ||= begin
-        get_request(user_url(access_token)).parsed_response.symbolize_keys
+        get_request(user_url(id_token)).parsed_response.symbolize_keys
       end
     end
 
-    def user_url(access_token)
-      PROFILE_URL % { access_token: access_token }
+    def user_url(id_token)
+      PROFILE_URL % { id_token: id_token }
     end
 
     def token_options
