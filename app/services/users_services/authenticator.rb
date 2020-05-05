@@ -37,7 +37,7 @@ module UsersServices
       @user = if User.exists?(login: user_data[:email])
                 User.find_by(login: user_data[:email])
               else
-                User.create(user_data.slice(:email).merge(provider: PROVIDER))
+                User.create(login: user_data[:email], provider: PROVIDER)
               end
     end
 
