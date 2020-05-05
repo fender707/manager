@@ -7,7 +7,7 @@ module UsersServices
 
     PROVIDER = 'google'.freeze
     TOKEN_URL = 'https://www.googleapis.com/oauth2/v3/token'.freeze
-    PROFILE_URL = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect?access_token=%{access_token}'.freeze
+    PROFILE_URL = 'https://oauth2.googleapis.com/tokeninfo?id_token=%{access_token}'.freeze
 
     def initialize(code)
       @code = code
@@ -28,7 +28,7 @@ module UsersServices
         response = HTTParty.post(TOKEN_URL, token_options)
         print "TOKEN RESPONSE\n\n\n\n\n\n"
         print response
-        response.parsed_response['access_token']
+        response.parsed_response['id_token']
       end
     end
 
@@ -73,6 +73,8 @@ module UsersServices
 
     def get_request(url)
       response = HTTParty.get(url)
+      print "PROFILE REQUEST\n\n\n\n\n"
+      print response
       unless response.code == 200
         Rails.logger.warn "#{PROVIDER} API request failed with status #{response.code}."
         Rails.logger.debug "#{PROVIDER} API error response was:\n#{response.body}"
