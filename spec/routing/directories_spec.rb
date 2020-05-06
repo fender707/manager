@@ -10,6 +10,10 @@ describe 'directories routes' do
     expect(post '/directories').to route_to('directories#create')
   end
 
+  it 'should route to directories show' do
+    expect(get '/directories/1').to route_to('directories#show', id: '1')
+  end
+
   it 'should route to directories update' do
     expect(put '/directories/1').to route_to('directories#update', id: '1')
     expect(patch '/directories/1').to route_to('directories#update', id: '1')

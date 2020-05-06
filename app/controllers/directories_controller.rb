@@ -6,6 +6,10 @@ class DirectoriesController < ApplicationController
     render json: directories
   end
 
+  def show
+    render json: Directory.find(params[:id])
+  end
+
   def create
     directory = current_user.directories.build(directory_params)
     directory.save!
