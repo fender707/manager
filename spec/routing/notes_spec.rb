@@ -13,5 +13,9 @@ RSpec.describe NotesController, type: :routing do
     it "routes to #create" do
       expect(:post => "directories/1/notes").to route_to("notes#create", directory_id: '1')
     end
+
+    it "routes to #update" do
+      expect(:patch => "directories/1/notes/1").to route_to("notes#update", directory_id: '1', id: '1')
+    end
   end
 end

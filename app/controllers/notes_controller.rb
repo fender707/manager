@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
-  before_action :authorize!, only: %i[create]
+  before_action :authorize!, only: %i[create update]
 
-  before_action :load_directory, only: %i[index create]
+  before_action :load_directory, only: %i[index create update]
 
   def all_notes
     all_notes = Note.all
@@ -22,6 +22,18 @@ class NotesController < ApplicationController
     render json: @note, status: :created, location: @directory
   rescue
     render json: @note, adapter: :json_api,
+           serializer: ErrorSerializer,
+           status: :unprocessable_entity
+  end
+
+  def update
+    note = @directory.notes.find(params[:id])
+    note.update_attributes!(note_params)
+    render json: note, status: :ok
+  rescue ActiveRecord::RecordNotFound
+    authorization_error
+  rescue
+    render json: note, adapter: :json_api,
            serializer: ErrorSerializer,
            status: :unprocessable_entity
   end
