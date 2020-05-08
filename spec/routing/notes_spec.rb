@@ -17,5 +17,9 @@ RSpec.describe NotesController, type: :routing do
     it "routes to #update" do
       expect(:patch => "directories/1/notes/1").to route_to("notes#update", directory_id: '1', id: '1')
     end
+
+    it 'should route to notes destroy' do
+      expect(delete '/directories/1/notes/1').to route_to('notes#destroy', directory_id: '1', id: '1')
+    end
   end
 end

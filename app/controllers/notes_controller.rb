@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   before_action :authorize!, only: %i[create update]
 
-  before_action :load_directory, only: %i[index create update]
+  before_action :load_directory, only: %i[index create update destroy]
 
   def all_notes
     all_notes = Note.all
@@ -36,6 +36,15 @@ class NotesController < ApplicationController
     render json: note, adapter: :json_api,
            serializer: ErrorSerializer,
            status: :unprocessable_entity
+  end
+
+
+  def destroy
+    note = @directory.notes.find(params[:id])
+    note.destroy
+    head :no_content
+  rescue
+    authorization_error
   end
 
   private
