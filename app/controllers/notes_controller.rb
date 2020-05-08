@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   before_action :authorize!, only: %i[create update]
 
-  before_action :load_directory, only: %i[index create update destroy]
+  before_action :load_directory, except: %i[all_notes]
 
   def all_notes
     all_notes = Note.all
@@ -11,6 +11,10 @@ class NotesController < ApplicationController
   def index
     notes = @directory.notes
     render json: notes
+  end
+
+  def show
+    render json: @directory.notes.find(params[:id])
   end
 
   def create
