@@ -34,11 +34,9 @@ class DirectoriesController < ApplicationController
 
   def update_notes_positions
     directory = current_user.directories.includes(:notes).find(params[:id])
-    print "HELLLLLOO\n\n\n\n\n\n\n"
-    print notes_positions_params[:orderedNotes]
     notes_positions_params[:orderedNotes].each_with_index do |note_id, index|
-      note = directory.notes.find { |note| note.id == note_id }
-      note.update!(position: index+1)
+      note = directory.notes.find { |note| note.id == note_id.to_i }
+      note.update(position: index+1)
     end
     render json: directory.notes.reload, status: :ok
   rescue ActiveRecord::RecordNotFound
