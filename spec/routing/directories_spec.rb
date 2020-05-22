@@ -22,4 +22,8 @@ describe 'directories routes' do
   it 'should route to directories destroy' do
     expect(delete '/directories/1').to route_to('directories#destroy', id: '1')
   end
+
+  it 'should route to directories update notes positions' do
+    expect(patch '/directories/1/update_notes_positions').to route_to('directories#update_notes_positions', id: '1')
+  end
 end
