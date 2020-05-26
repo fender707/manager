@@ -15,7 +15,7 @@ describe DirectoriesController do
       Directory.recent.each_with_index do |directory, index|
         expect(json_data[index]['attributes']).to eq({
                                                        "title" => directory.title,
-                                                       "parent-directory-id" => directory.parent_directory_id
+                                                       "parent_directory_id" => directory.parent_directory_id
                                                      })
       end
     end
@@ -84,7 +84,7 @@ describe DirectoriesController do
             'data' => {
               'attributes' => {
                 'title' => 'Awesome directory',
-                'parent-directory-id' => nil
+                'parent_directory_id' => nil
               }
             }
           }
@@ -179,7 +179,7 @@ describe DirectoriesController do
             'data' => {
               'attributes' => {
                 'title' => 'Awesome directory',
-                'parent-directory-id' => nil
+                'parent_directory_id' => nil
               }
             }
           }
